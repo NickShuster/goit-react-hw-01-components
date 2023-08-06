@@ -10,17 +10,6 @@ import transactions from '../components/data/transactions.json';
 import friends from '../components/data/friends.json'; 
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      friendsData: [],
-    };
-  }
-
-  componentDidMount() {
-    this.setState({ friendsData: friends });
-  }
-
   render() {
     return (
       <div>
@@ -35,7 +24,7 @@ class App extends Component {
 
         <Statistics title="Upload stats" stats={data} />
 
-        <FriendList friends={this.state.friendsData} />
+        <FriendList friends={friends} />
 
         <TransactionHistory items={transactions} />
       </div>
