@@ -1,40 +1,46 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import Profile from './Profile/Profile'; 
 import Statistics from './Statistics/Statistics';
 import FriendList from './FriendList/FriendList';
-import TransactionHistory from './TransactionHistory';
+import TransactionHistory from './TransactionHistory/TransactionHistory';
 
-import user from '../components/user.json'; 
-import data from '../components/data.json';
-import transactions from '../components/transactions.json';
-import friends from '../components/friends.json'; 
+import user from '../components/data/user.json'; 
+import data from '../components/data/data.json';
+import transactions from '../components/data/transactions.json';
+import friends from '../components/data/friends.json'; 
 
-const App = () => {
-  const [friendsData, setFriendsData] = useState([]);
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      friendsData: [],
+    };
+  }
 
-  useEffect(() => {
-    setFriendsData(friends);
-  }, []);
+  componentDidMount() {
+    this.setState({ friendsData: friends });
+  }
 
-  return (
-    <div>
-      <h1>My Social Media Profile</h1>
-      <Profile
-        username={user.username}
-        tag={user.tag}
-        location={user.location}
-        avatar={user.avatar}
-        stats={user.stats}
-      />
+  render() {
+    return (
+      <div>
+        <h1>My Social Media Profile</h1>
+        <Profile
+          username={user.username}
+          tag={user.tag}
+          location={user.location}
+          avatar={user.avatar}
+          stats={user.stats}
+        />
 
-      <Statistics title="Upload stats" stats={data} />
+        <Statistics title="Upload stats" stats={data} />
 
-      <FriendList friends={friendsData} />
+        <FriendList friends={this.state.friendsData} />
 
-      <TransactionHistory items={transactions} />
-    </div>
-  );
-};
+        <TransactionHistory items={transactions} />
+      </div>
+    );
+  }
+}
 
 export default App;
